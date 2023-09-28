@@ -26,4 +26,34 @@ public class DoubleLinkedList<T>{
         }
     }
 
+    public DoubleLinkedNode<T> search(T value){
+
+        DoubleLinkedNode<T> toReturn = null;
+        boolean flag = false;
+
+        if(head != null){
+
+            DoubleLinkedNode<T> current = head;
+
+            while(current.getNext() != null && !flag){
+
+                if(current.getValue() == value){
+
+                    toReturn = current;
+                    flag = true;
+                }
+
+                current = current.getNext();
+            }
+        }
+
+        return toReturn;
+
+    }
+
+    public boolean isEmpty(){
+
+        return head == null;
+    }
+
 }

@@ -29,7 +29,60 @@ public class LinkedList<T>{
 
         }
 
+    }
 
+    public T deleteFirst(){
+
+        T deleted = null;
+
+        if(head != null){
+
+           deleted = head.getValue();
+
+            SingleLinkedNode<T> newHead = head.getNext();
+
+            head = newHead;
+
+        }
+
+        return deleted;
+    }
+
+    public T getFirst(){
+
+        T first = head.getValue();
+
+        return first;
+    }
+
+    public SingleLinkedNode<T> search(T value){
+
+        SingleLinkedNode<T> toReturn = null;
+        boolean flag = false;
+
+        if(head != null){
+
+            SingleLinkedNode<T> current = head;
+
+            while(current.getNext() != null && !flag){
+
+                if(current.getValue() == value){
+
+                    toReturn = current;
+                    flag = true;
+                }
+
+                current = current.getNext();
+            }
+        }
+
+        return toReturn;
+
+    }
+
+    public boolean isEmpty(){
+
+        return head == null;
     }
 
 
