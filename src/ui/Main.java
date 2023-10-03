@@ -1,14 +1,19 @@
 package ui;
+import model.TaskManager;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     private Scanner reader;
+    private int taskCount;
+    private TaskManager controller;
 
     public Main(){
 
         reader = new Scanner(System.in);
-
+        taskCount = 1;
+        controller = new TaskManager();
     }
 
     public static void main(String[] args){
@@ -52,19 +57,16 @@ public class Main {
             case 1:
                 System.out.println("-------------------------------------------");
                 addTask();
-                //FIXME Add Task method.
                 break;
 
             case 2:
                 System.out.println("-------------------------------------------");
-                //modifyTask();
-                //FIXME Modify Task method.
+                modifyTask();
                 break;
 
             case 3:
                 System.out.println("-------------------------------------------");
-                //viewTasks();
-                //FIXME View Tasks method.
+                viewTasks();
                 break;
 
             case 4:
@@ -86,23 +88,51 @@ public class Main {
 
     public void addTask(){
 
+        Random random = new Random();
         String taskTitle = " ";
-        String taskDesc = " ";
+        String taskDesc1 = " ";
+        String taskDesc2 = " ";
         String limitDate = " ";
         int taskPriority = 0;
+        int taskId = random.nextInt(100);
+
 
         System.out.println("Type the title of the task: ");
         taskTitle = reader.next();
         System.out.println("Type the task description: ");
-        taskDesc = reader.next();
+        taskDesc1 = reader.next();
+        taskDesc2 = reader.nextLine();
         System.out.println("Type the limit date for the task: ");
-        limitDate = reader.next();
+        limitDate = reader.nextLine();
         System.out.println("Choose the priority: ");
         System.out.println("1. Priority");
         System.out.println("2. Non-priority");
         taskPriority =  reader.nextInt();
 
+        String taskDesc = taskDesc1 + taskDesc2;
+        System.out.println(controller.addTask(taskCount, taskId, taskTitle, taskDesc, limitDate, taskPriority));
+        taskCount++;
 
+    }
+
+    public void modifyTask(){
+
+
+        int key = 0;
+        String newDesc = " ";
+
+        System.out.println("Type the key of the task to modify: ");
+        key = reader.nextInt();
+        System.out.println("Type the new description: ");
+        newDesc = reader.next();
+
+        System.out.println(controller.modifyTask(key,newDesc));
+
+    }
+
+    public void viewTasks(){
+
+        System.out.println(controller.showTasks());
     }
 
     public int validateIntegerInput(){

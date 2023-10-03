@@ -1,16 +1,27 @@
 package model;
-import java.util.Objects;
+
 public class Task{
 
     private int id;
+    private String title;
+    private String limitDate;
+
     private String desc;
     private Priority priority;
 
-    public Task(int id, String desc, Priority priority){
+    public Task(int id, String title, String limitDate, String desc, Priority priority){
 
         this.id = id;
+        this.title = title;
+        this.limitDate = limitDate;
         this.desc = desc;
         this.priority = priority;
+
+    }
+
+    public void setDesc(String newDesc){
+
+        this.desc = newDesc;
 
     }
 
@@ -33,9 +44,11 @@ public class Task{
     @Override
     public String toString(){
 
-        return " Priority: " + priority + "\n Description: " + desc;
+        return  title + "\nPriority: " + priority + "\nDescription: " + desc + "\nLimit date: " + limitDate;
 
     }
+
+
 
 
 }

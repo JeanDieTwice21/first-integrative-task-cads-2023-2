@@ -3,19 +3,25 @@ package model;
 public class HashTable<K, V>{
 
     private HTNode<K,V>[] table;
+    private int capacity;
     private int size;
 
-    public HashTable(int size){
+    public HashTable(int capacity){
 
-        table = new HTNode[size];
+        table = new HTNode[capacity];
+        this.capacity = capacity;
         this.size = 0;
 
+    }
 
+    public int getSize(){
+
+        return size;
     }
 
     private int hash(K key){
 
-        return key.hashCode() % size;
+        return key.hashCode() % capacity;
 
     }
 
@@ -23,6 +29,7 @@ public class HashTable<K, V>{
 
         int index = hash(key);
         table[index] = new HTNode<>(key, value);
+        size++;
 
     }
 
@@ -51,11 +58,11 @@ public class HashTable<K, V>{
     public String toString(){
 
         String msg = " ";
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < capacity; i++){
 
             if(table[i] != null){
 
-                msg += "Key: " + table[i].getKey() + "\n Task: " + table[i].getValue().toString() + "\n";
+                msg += "Key: " + table[i].getKey() + "\n" + table[i].getValue() + "\n\n";
             }
         }
 
