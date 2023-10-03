@@ -10,6 +10,25 @@ public class DoubleLinkedList<T>{
         this.tail = null;
     }
 
+    public T deleteLast(){
+
+        T deleted = null;
+
+        if(head != null){
+
+            deleted = tail.getValue();
+
+            if(tail.getPrev() != null){
+
+                tail = tail.getPrev();
+                tail.setPrev(null);
+
+            }
+
+        }
+
+        return deleted;
+    }
     public void add(T value) {
 
         DoubleLinkedNode<T> node = new DoubleLinkedNode<>(value);

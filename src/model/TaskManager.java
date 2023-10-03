@@ -4,11 +4,13 @@ public class TaskManager{
 
     private HashTable<Integer, Task> taskTable;
     private Queue<Task> priorityQueue, nonPrioQueue;
+    private Stack<ActionRecord> actions;
     public TaskManager(){
 
         taskTable = new HashTable<>(10);
         priorityQueue = new Queue<>();
         nonPrioQueue = new Queue<>();
+        actions = new Stack<>();
     }
 
     public String addTask(int key, int id, String title, String desc, String limitDate, int prio){
@@ -40,6 +42,8 @@ public class TaskManager{
                 nonPrioQueue.enqueue(newTask);
             }
             msg = "Task added.";
+
+            actions.push(new ActionRecord(key,newTask, Action.ADD));
         }
         else{
 
@@ -59,16 +63,93 @@ public class TaskManager{
         }
         else{
 
+            String modifiedDesc = task.getDesc();
             task.setDesc(newDesc);
             msg = "Task modified.";
+            actions.push(new ActionRecord(key, modifiedDesc, Action.MODIFY));
         }
 
         return msg;
     }
 
+    public String removeTask(int key){
+
+        String msg = "";
+        Task removedTask = taskTable.get(key);
+        taskTable.remove(key);
+        actions.push(new ActionRecord(key,removedTask, Action.REMOVE));
+        msg = "Task removed.";
+
+        return msg;
+
+    }
+
+    public String showPriorityTasks(){
+
+
+        return priorityQueue.toString();
+
+    }
+
+    public String showNonPrioTasks(){
+
+        return nonPrioQueue.toString();
+    }
     public String showTasks(){
 
         return taskTable.toString();
+
+    }
+
+    public String undo() {
+
+        String msg = "";
+        ActionRecord action = actions.pop();
+
+        if(action != null) {
+
+
+            if (action.getType() == Action.ADD) {
+
+                Task addedTask = action.getTask();
+                int addedTKey = action.getTKey();
+                taskTable.remove(addedTKey);
+                if(addedTask.getPrio() == Priority.PRIORITY){
+
+                    priorityQueue.deleteEspecific(addedTask);
+
+                }
+                else if(addedTask.getPrio() == Priority.NONPRIORITY){
+
+                    nonPrioQueue.deleteEspecific(addedTask);
+                }
+                msg = "Add action undone.";
+
+            } else if (action.getType() == Action.MODIFY) {
+
+                int modifiedTKey = action.getModifiedTKey();
+                String modifiedDesc = action.getModifiedAt();
+
+                Task modifiedTask = taskTable.get(modifiedTKey);
+                modifiedTask.setDesc(modifiedDesc);
+
+                msg = "Modify action undone.";
+
+            } else if (action.getType() == Action.REMOVE) {
+
+                Task removedTask = action.getTask();
+                int removedTKey = action.getTKey();
+
+                taskTable.put(removedTKey, removedTask);
+
+                msg = "Remove action undone.";
+            }
+        }
+        else{
+
+            msg = "No actions recorded.";
+        }
+        return msg;
 
     }
 }

@@ -19,21 +19,8 @@ public class Stack<T>{
 
     public T pop(){
 
-        DoubleLinkedNode<T> n = stack.search(top);
-        T newTop = null;
+        return stack.deleteLast();
 
-        if(n != null){
-
-            DoubleLinkedNode<T> p = n.getPrev();
-
-            p.setNext(null);
-            newTop = p.getValue();
-
-            n.setPrev(null);
-            n.setNext(null);
-        }
-
-        return newTop;
     }
 
     public T top(){

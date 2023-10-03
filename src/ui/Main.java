@@ -41,8 +41,8 @@ public class Main {
         System.out.println("|       Welcome to the Task Manager         |");
         System.out.println("|                                           |");
         System.out.println("|             1. Add task.                  |");
-        System.out.println("|             2. Modify task.               |");
-        System.out.println("|             3. View tasks.                |");
+        System.out.println("|             2. View tasks                 |");
+        System.out.println("|             3. Modify task                |");
         System.out.println("|             4. Undo.                      |");
         System.out.println("|             5. Exit.                      |");
         System.out.println("|                                           |");
@@ -61,18 +61,17 @@ public class Main {
 
             case 2:
                 System.out.println("-------------------------------------------");
-                modifyTask();
+                viewTasks();
                 break;
 
             case 3:
                 System.out.println("-------------------------------------------");
-                viewTasks();
+                modifyTask();
                 break;
 
             case 4:
                 System.out.println("-------------------------------------------");
-                //undo();
-                //FIXME Undo method.
+                undo();
                 break;
 
             case 5:
@@ -132,7 +131,44 @@ public class Main {
 
     public void viewTasks(){
 
-        System.out.println(controller.showTasks());
+        int option = 0;
+
+
+        do {
+            System.out.println("-----------------------------------\n");
+            System.out.println("Choose an option: ");
+            System.out.println("\n1. View priority tasks.\n");
+            System.out.println("2. View non priority tasks.\n");
+            System.out.println("3. View all tasks.\n");
+            System.out.println("4. Return to menu.");
+            System.out.println("----------------------------------");
+            option = reader.nextInt();
+
+            switch (option) {
+
+
+                case 1:
+
+                    System.out.println(controller.showPriorityTasks());
+                    break;
+
+                case 2:
+
+                    System.out.println(controller.showNonPrioTasks());
+                    break;
+
+                case 3:
+
+                    System.out.println(controller.showTasks());
+                    break;
+            }
+
+        }while(option != 4);
+    }
+
+    public void undo(){
+
+       System.out.println(controller.undo());
     }
 
     public int validateIntegerInput(){

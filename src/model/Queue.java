@@ -19,6 +19,11 @@ public class Queue<T>{
         return queue.deleteFirst();
     }
 
+    public void deleteEspecific(T value){
+
+        queue.delete(value);
+    }
+
     public T peek(){
 
         return queue.getFirst();
@@ -28,5 +33,13 @@ public class Queue<T>{
 
         return queue.isEmpty();
 
+    }
+
+
+
+    @Override
+    public String toString(){
+
+        return queue.toString();
     }
 }
