@@ -1,0 +1,45 @@
+package model;
+
+public class Queue<T>{
+
+    private LinkedList<T> queue;
+
+    public Queue(){
+
+        queue = new LinkedList<>();
+    }
+
+    public void enqueue(T value){
+
+        queue.add(value);
+    }
+
+    public T dequeue(){
+
+        return queue.deleteFirst();
+    }
+
+    public void deleteEspecific(T value){
+
+        queue.delete(value);
+    }
+
+    public T peek(){
+
+        return queue.getFirst();
+    }
+
+    public boolean isEmpty(){
+
+        return queue.isEmpty();
+
+    }
+
+
+
+    @Override
+    public String toString(){
+
+        return queue.toString();
+    }
+}
