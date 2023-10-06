@@ -3,7 +3,8 @@ package model;
 public class TaskManager{
 
     private HashTable<Integer, Task> taskTable;
-    private Queue<Task> priorityQueue, nonPrioQueue;
+    private Queue<Task> priorityQueue;
+    private Queue<Task> nonPrioQueue;
     private Stack<ActionRecord> actions;
     public TaskManager(){
 
@@ -53,7 +54,7 @@ public class TaskManager{
         return msg;
     }
 
-    public String modifyTask(int key, String newDesc){
+    public String modifyTask(int key, String newDesc, String newDate){
 
         String msg = " ";
         Task task = taskTable.get(key);
@@ -64,9 +65,11 @@ public class TaskManager{
         else{
 
             String modifiedDesc = task.getDesc();
+            String modifiedDate = task.getLimitDate();
             task.setDesc(newDesc);
+            task.setLimitDate(newDate);
             msg = "Task modified.";
-            actions.push(new ActionRecord(key, modifiedDesc, Action.MODIFY));
+            actions.push(new ActionRecord(key, modifiedDesc, modifiedDate, Action.MODIFY));
         }
 
         return msg;
@@ -79,6 +82,16 @@ public class TaskManager{
         taskTable.remove(key);
         actions.push(new ActionRecord(key,removedTask, Action.REMOVE));
         msg = "Task removed.";
+
+        if(removedTask.getPrio() == Priority.PRIORITY){
+
+            priorityQueue.dequeue();
+        }
+        else if(removedTask.getPrio() == Priority.NONPRIORITY){
+
+            nonPrioQueue.dequeue();
+
+        }
 
         return msg;
 
@@ -114,24 +127,18 @@ public class TaskManager{
                 Task addedTask = action.getTask();
                 int addedTKey = action.getTKey();
                 taskTable.remove(addedTKey);
-                if(addedTask.getPrio() == Priority.PRIORITY){
 
-                    priorityQueue.deleteEspecific(addedTask);
-
-                }
-                else if(addedTask.getPrio() == Priority.NONPRIORITY){
-
-                    nonPrioQueue.deleteEspecific(addedTask);
-                }
                 msg = "Add action undone.";
 
             } else if (action.getType() == Action.MODIFY) {
 
                 int modifiedTKey = action.getModifiedTKey();
-                String modifiedDesc = action.getModifiedAt();
+                String modifiedDesc = action.getModifiedDesc();
+                String modifiedDate = action.getModifiedDate();
 
                 Task modifiedTask = taskTable.get(modifiedTKey);
                 modifiedTask.setDesc(modifiedDesc);
+                modifiedTask.setLimitDate(modifiedDate);
 
                 msg = "Modify action undone.";
 

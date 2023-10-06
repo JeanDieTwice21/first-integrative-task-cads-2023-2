@@ -5,7 +5,7 @@ public class ActionRecord{
     private Task action;
 
     private Action actionType;
-    private String modifiedAt;
+    private String modifiedDesc, modifiedDate;
     private int modifiedTKey;
     private int tKey;
 
@@ -16,9 +16,10 @@ public class ActionRecord{
         this.actionType = actionType;
     }
 
-    public ActionRecord(int modifiedTKey, String modifiedAt, Action actionType){
+    public ActionRecord(int modifiedTKey, String modifiedDesc, String modifiedDate, Action actionType){
 
-        this.modifiedAt = modifiedAt;
+        this.modifiedDesc = modifiedDesc;
+        this.modifiedDate = modifiedDate;
         this.actionType = actionType;
         this.modifiedTKey = modifiedTKey;
     }
@@ -29,9 +30,14 @@ public class ActionRecord{
 
         return tKey;
     }
-    public String getModifiedAt(){
 
-        return modifiedAt;
+    public String getModifiedDate(){
+
+        return modifiedDate;
+    }
+    public String getModifiedDesc(){
+
+        return modifiedDesc;
     }
     public int getModifiedTKey(){
 

@@ -29,7 +29,7 @@ public class Main {
 
 
 
-        }while(choice != 5);
+        }while(choice != 6);
 
     }
 
@@ -41,10 +41,11 @@ public class Main {
         System.out.println("|       Welcome to the Task Manager         |");
         System.out.println("|                                           |");
         System.out.println("|             1. Add task.                  |");
-        System.out.println("|             2. View tasks                 |");
-        System.out.println("|             3. Modify task                |");
-        System.out.println("|             4. Undo.                      |");
-        System.out.println("|             5. Exit.                      |");
+        System.out.println("|             2. View tasks.                |");
+        System.out.println("|             3. Modify task.               |");
+        System.out.println("|             4. Delete task.               |");
+        System.out.println("|             5. Undo.                      |");
+        System.out.println("|             6. Exit.                      |");
         System.out.println("|                                           |");
         System.out.println("|-------------------------------------------|");
     }
@@ -71,10 +72,14 @@ public class Main {
 
             case 4:
                 System.out.println("-------------------------------------------");
+                deleteTask();
+                break;
+            case 5:
+                System.out.println("-------------------------------------------");
                 undo();
                 break;
 
-            case 5:
+            case 6:
 
                 System.out.println("--------------");
                 System.out.println("\n   Goodbye!   \n");
@@ -119,13 +124,16 @@ public class Main {
 
         int key = 0;
         String newDesc = " ";
+        String newDate = " ";
 
         System.out.println("Type the key of the task to modify: ");
         key = reader.nextInt();
+        System.out.println("Type the new limit date: ");
+        newDate = reader.next();
         System.out.println("Type the new description: ");
         newDesc = reader.next();
 
-        System.out.println(controller.modifyTask(key,newDesc));
+        System.out.println(controller.modifyTask(key,newDesc,newDate));
 
     }
 
@@ -166,6 +174,16 @@ public class Main {
         }while(option != 4);
     }
 
+    public void deleteTask(){
+
+        int taskKey = 0;
+
+        System.out.println("Type the key of the task to delete: ");
+        taskKey = reader.nextInt();
+
+        System.out.println(controller.removeTask(taskKey));
+
+    }
     public void undo(){
 
        System.out.println(controller.undo());

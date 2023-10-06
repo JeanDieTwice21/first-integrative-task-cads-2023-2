@@ -1,8 +1,10 @@
 package model;
 
+
 public class Queue<T>{
 
     private LinkedList<T> queue;
+
 
     public Queue(){
 
@@ -12,6 +14,7 @@ public class Queue<T>{
     public void enqueue(T value){
 
         queue.add(value);
+
     }
 
     public T dequeue(){
@@ -19,10 +22,6 @@ public class Queue<T>{
         return queue.deleteFirst();
     }
 
-    public void deleteEspecific(T value){
-
-        queue.delete(value);
-    }
 
     public T peek(){
 

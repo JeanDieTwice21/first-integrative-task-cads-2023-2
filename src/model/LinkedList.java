@@ -17,6 +17,7 @@ public class LinkedList<T>{
 
     public void add(T value){
 
+        lastAdded = value;
         SingleLinkedNode<T> newNode = new SingleLinkedNode<>(value);
 
         if(head == null){
@@ -32,43 +33,8 @@ public class LinkedList<T>{
 
         }
 
-        lastAdded = value;
 
     }
-
-    public void delete(T value){
-
-        boolean flag = false;
-
-        if(head != null){
-
-            SingleLinkedNode<T> current = head;
-            SingleLinkedNode<T> previous = null;
-
-            while(current.getNext() != null && !flag){
-
-                if((current.getValue().equals(value))){
-
-                    if(previous == null){
-
-                        head = current.getNext();
-                    }
-                    else{
-
-                        previous.setNext(current.getNext());
-                    }
-
-                    flag = true;
-                }
-                else{
-                    previous = current;
-                    current = current.getNext();
-                }
-            }
-        }
-    }
-
-
 
     public T deleteFirst(){
 
@@ -76,11 +42,12 @@ public class LinkedList<T>{
 
         if(head != null){
 
-           deleted = head.getValue();
-
             SingleLinkedNode<T> newHead = head.getNext();
 
-            head = newHead;
+           deleted = head.getValue();
+           head = null;
+
+           head = newHead;
 
         }
 
@@ -89,9 +56,8 @@ public class LinkedList<T>{
 
     public T getFirst(){
 
-        T first = head.getValue();
+        return head.getValue();
 
-        return first;
     }
 
     public SingleLinkedNode<T> search(T value){

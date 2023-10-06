@@ -20,6 +20,16 @@ public class Task{
 
     }
 
+    public void setLimitDate(String newDate){
+
+        this.limitDate = newDate;
+    }
+
+    public String getLimitDate(){
+
+        return limitDate;
+    }
+
     public void setDesc(String newDesc){
 
         this.desc = newDesc;

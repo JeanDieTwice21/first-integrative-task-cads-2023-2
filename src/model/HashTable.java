@@ -66,6 +66,11 @@ public class HashTable<K, V>{
             }
         }
 
+        if(msg.equals(" ")){
+
+            msg = "No elements";
+        }
+
         return msg;
     }
 }
