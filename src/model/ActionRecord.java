@@ -1,11 +1,14 @@
 package model;
 
+import java.util.Date;
+
 public class ActionRecord{
 
     private Task action;
 
     private Action actionType;
-    private String modifiedDesc, modifiedDate;
+    private String modifiedDesc;
+    private Date modifiedDate;
     private int modifiedTKey;
     private int tKey;
 
@@ -16,7 +19,7 @@ public class ActionRecord{
         this.actionType = actionType;
     }
 
-    public ActionRecord(int modifiedTKey, String modifiedDesc, String modifiedDate, Action actionType){
+    public ActionRecord(int modifiedTKey, String modifiedDesc, Date modifiedDate, Action actionType){
 
         this.modifiedDesc = modifiedDesc;
         this.modifiedDate = modifiedDate;
@@ -31,7 +34,7 @@ public class ActionRecord{
         return tKey;
     }
 
-    public String getModifiedDate(){
+    public Date getModifiedDate(){
 
         return modifiedDate;
     }

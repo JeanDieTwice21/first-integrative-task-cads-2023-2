@@ -1,14 +1,14 @@
-package model;
+package util;
 
 
 public class Queue<T>{
 
-    private LinkedList<T> queue;
+    private DoubleLinkedList<T> queue;
 
 
     public Queue(){
 
-        queue = new LinkedList<>();
+        queue = new DoubleLinkedList<>();
     }
 
     public void enqueue(T value){
@@ -19,7 +19,7 @@ public class Queue<T>{
 
     public T dequeue(){
 
-        return queue.deleteFirst();
+        return queue.removeLast();
     }
 
 

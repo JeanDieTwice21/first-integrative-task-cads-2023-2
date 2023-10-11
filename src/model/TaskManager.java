@@ -1,22 +1,34 @@
 package model;
+import util.HashTable;
+import util.PriorityQueue;
+import util.Stack;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class TaskManager{
 
     private HashTable<Integer, Task> taskTable;
-    private Queue<Task> priorityQueue;
-    private Queue<Task> nonPrioQueue;
+    private PriorityQueue<Task> priorityQueue;
+    private PriorityQueue<Task> nonPrioQueue;
     private Stack<ActionRecord> actions;
+    private SimpleDateFormat format;
+
     public TaskManager(){
 
         taskTable = new HashTable<>(10);
-        priorityQueue = new Queue<>();
-        nonPrioQueue = new Queue<>();
+        priorityQueue = new PriorityQueue<>();
+        nonPrioQueue = new PriorityQueue<>();
         actions = new Stack<>();
+        format = new SimpleDateFormat("dd/MM/yyyy");
     }
 
-    public String addTask(int key, int id, String title, String desc, String limitDate, int prio){
+    public String addTask(int key, int id, String title, String desc, String limitDate, int prio) throws ParseException{
 
         String msg = "";
+        Date taskDate = format.parse(limitDate);
+
         if(taskTable.getSize() != 10){
 
             Priority priority = null;
@@ -30,7 +42,7 @@ public class TaskManager{
 
             }
 
-            Task newTask = new Task(id, title, limitDate, desc, priority);
+            Task newTask = new Task(id, title, taskDate, desc, priority);
 
             taskTable.put(key, newTask);
 
@@ -54,9 +66,10 @@ public class TaskManager{
         return msg;
     }
 
-    public String modifyTask(int key, String newDesc, String newDate){
+    public String modifyTask(int key, String newDesc, String newDate) throws ParseException{
 
         String msg = " ";
+        Date newLimitDate = format.parse(newDate);
         Task task = taskTable.get(key);
         if(task == null){
 
@@ -65,9 +78,9 @@ public class TaskManager{
         else{
 
             String modifiedDesc = task.getDesc();
-            String modifiedDate = task.getLimitDate();
+            Date modifiedDate = task.getLimitDate();
             task.setDesc(newDesc);
-            task.setLimitDate(newDate);
+            task.setLimitDate(newLimitDate);
             msg = "Task modified.";
             actions.push(new ActionRecord(key, modifiedDesc, modifiedDate, Action.MODIFY));
         }
@@ -127,6 +140,13 @@ public class TaskManager{
                 Task addedTask = action.getTask();
                 int addedTKey = action.getTKey();
                 taskTable.remove(addedTKey);
+                if(addedTask.getPrio() == Priority.PRIORITY) {
+                    priorityQueue.remove(addedTask);
+                }
+                else if(addedTask.getPrio() == Priority.NONPRIORITY){
+
+                    nonPrioQueue.remove(addedTask);
+                }
 
                 msg = "Add action undone.";
 
@@ -134,7 +154,7 @@ public class TaskManager{
 
                 int modifiedTKey = action.getModifiedTKey();
                 String modifiedDesc = action.getModifiedDesc();
-                String modifiedDate = action.getModifiedDate();
+                Date modifiedDate = action.getModifiedDate();
 
                 Task modifiedTask = taskTable.get(modifiedTKey);
                 modifiedTask.setDesc(modifiedDesc);
@@ -148,6 +168,16 @@ public class TaskManager{
                 int removedTKey = action.getTKey();
 
                 taskTable.put(removedTKey, removedTask);
+
+                if(removedTask.getPrio() == Priority.PRIORITY){
+
+                    priorityQueue.enqueue(removedTask);
+
+                }
+                else if(removedTask.getPrio() == Priority.NONPRIORITY){
+
+                    nonPrioQueue.enqueue(removedTask);
+                }
 
                 msg = "Remove action undone.";
             }

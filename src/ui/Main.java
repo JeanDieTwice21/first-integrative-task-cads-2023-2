@@ -2,7 +2,7 @@ package ui;
 import model.TaskManager;
 import java.util.Random;
 import java.util.Scanner;
-
+import java.text.ParseException;
 public class Main {
 
     private Scanner reader;
@@ -39,6 +39,10 @@ public class Main {
         System.out.println("|-------------------------------------------|");
         System.out.println("|                                           |");
         System.out.println("|       Welcome to the Task Manager         |");
+        System.out.println("|                                           |");
+        System.out.println("|       Tip: Check for the task key         |");
+        System.out.println("|       before delete or modify a task      |");
+        System.out.println("|       in the View Task option             |");
         System.out.println("|                                           |");
         System.out.println("|             1. Add task.                  |");
         System.out.println("|             2. View tasks.                |");
@@ -106,7 +110,7 @@ public class Main {
         System.out.println("Type the task description: ");
         taskDesc1 = reader.next();
         taskDesc2 = reader.nextLine();
-        System.out.println("Type the limit date for the task: ");
+        System.out.println("Type the limit date for the task (dd/MM/yyyy): ");
         limitDate = reader.nextLine();
         System.out.println("Choose the priority: ");
         System.out.println("1. Priority");
@@ -114,8 +118,19 @@ public class Main {
         taskPriority =  reader.nextInt();
 
         String taskDesc = taskDesc1 + taskDesc2;
-        System.out.println(controller.addTask(taskCount, taskId, taskTitle, taskDesc, limitDate, taskPriority));
-        taskCount++;
+
+        try{
+
+            System.out.println(controller.addTask(taskCount, taskId, taskTitle, taskDesc, limitDate, taskPriority));
+            taskCount++;
+
+        }
+        catch(ParseException e){
+
+            System.err.println("Unvalid date format!");
+        }
+
+
 
     }
 
@@ -128,12 +143,18 @@ public class Main {
 
         System.out.println("Type the key of the task to modify: ");
         key = reader.nextInt();
-        System.out.println("Type the new limit date: ");
+        System.out.println("Type the new limit date (dd/MM/yyyy): ");
         newDate = reader.next();
         System.out.println("Type the new description: ");
         newDesc = reader.next();
 
-        System.out.println(controller.modifyTask(key,newDesc,newDate));
+        try {
+            System.out.println(controller.modifyTask(key, newDesc, newDate));
+        }
+        catch(ParseException e){
+
+            System.err.println("Unvalid date format!");
+        }
 
     }
 

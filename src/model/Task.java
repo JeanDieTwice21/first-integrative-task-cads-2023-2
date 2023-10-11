@@ -1,16 +1,18 @@
 package model;
 
-public class Task{
+import java.util.Date;
+
+public class Task implements Comparable<Task>{
 
     private int id;
     private String title;
-    private String limitDate;
+    private Date limitDate;
 
     private String desc;
     private Priority priority;
 
 
-    public Task(int id, String title, String limitDate, String desc, Priority priority){
+    public Task(int id, String title, Date limitDate, String desc, Priority priority){
 
         this.id = id;
         this.title = title;
@@ -20,12 +22,12 @@ public class Task{
 
     }
 
-    public void setLimitDate(String newDate){
+    public void setLimitDate(Date newDate){
 
         this.limitDate = newDate;
     }
 
-    public String getLimitDate(){
+    public Date getLimitDate(){
 
         return limitDate;
     }
@@ -55,11 +57,14 @@ public class Task{
     @Override
     public String toString(){
 
-        return  title + "\nPriority: " + priority + "\nDescription: " + desc + "\nLimit date: " + limitDate;
+        return  "Task{" + title + "\nPriority: " + priority + "\nDescription: " + desc + "\nLimit date: " + limitDate + "}";
 
     }
 
 
+    @Override
+    public int compareTo(Task o){
 
-
+        return this.getLimitDate().compareTo(o.getLimitDate());
+    }
 }

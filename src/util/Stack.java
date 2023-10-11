@@ -1,4 +1,4 @@
-package model;
+package util;
 
 public class Stack<T>{
 
@@ -19,7 +19,11 @@ public class Stack<T>{
 
     public T pop(){
 
-        return stack.deleteLast();
+        if(top == null){
+
+            return null;
+        }
+        return stack.removeLast();
 
     }
 
