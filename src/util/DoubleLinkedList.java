@@ -23,6 +23,7 @@ public class DoubleLinkedList<T>{
 
         }
 
+
         if(size == 1){
 
             val = head.getValue();

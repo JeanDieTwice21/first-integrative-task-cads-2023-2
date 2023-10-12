@@ -2,7 +2,6 @@ package model;
 import util.HashTable;
 import util.PriorityQueue;
 import util.Stack;
-
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -73,7 +72,7 @@ public class TaskManager{
         Task task = taskTable.get(key);
         if(task == null){
 
-            msg = "Couldnt find task.";
+            msg = "Couldn't find task.";
         }
         else{
 
@@ -92,18 +91,26 @@ public class TaskManager{
 
         String msg = "";
         Task removedTask = taskTable.get(key);
-        taskTable.remove(key);
-        actions.push(new ActionRecord(key,removedTask, Action.REMOVE));
-        msg = "Task removed.";
 
-        if(removedTask.getPrio() == Priority.PRIORITY){
+        if(removedTask != null) {
 
-            priorityQueue.dequeue();
+            taskTable.remove(key);
+            actions.push(new ActionRecord(key, removedTask, Action.REMOVE));
+
+            if (removedTask.getPrio() == Priority.PRIORITY) {
+
+                priorityQueue.dequeue();
+            } else if (removedTask.getPrio() == Priority.NONPRIORITY) {
+
+                nonPrioQueue.dequeue();
+
+            }
+
+            msg = "Task removed.";
         }
-        else if(removedTask.getPrio() == Priority.NONPRIORITY){
+        else{
 
-            nonPrioQueue.dequeue();
-
+            msg = "Couldn't find task!";
         }
 
         return msg;
