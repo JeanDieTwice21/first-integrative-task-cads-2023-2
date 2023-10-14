@@ -1,6 +1,6 @@
 package util;
 
-public class DoubleLinkedList<T>{
+public class DoubleLinkedList<T> {
 
     private DoubleLinkedNode<T> head;
     private DoubleLinkedNode<T> tail;
@@ -13,37 +13,28 @@ public class DoubleLinkedList<T>{
 
     }
 
-    public T removeLast(){
-
+    public T removeLast() {
         T val = null;
-
-        if(isEmpty()){
-
-            val = null;
-
+    
+        if (isEmpty()) {
+            return null; 
         }
-
-
-        if(size == 1){
-
+    
+        if (size == 1) {
             val = head.getValue();
             head = null;
             tail = null;
-
-        }
-        else{
-
+        } else {
             val = tail.getValue();
             DoubleLinkedNode<T> newTail = tail.getPrev();
             newTail.setNext(null);
-
             tail = newTail;
         }
-
+    
         size--;
-
         return val;
     }
+    
 
 
     public void add(T value) {

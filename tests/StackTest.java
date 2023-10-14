@@ -1,7 +1,7 @@
 package tests;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import model.Stack;
+import util.Stack;
 public class StackTest<T> {
 
     // pop an empty stack and check that it returns null
