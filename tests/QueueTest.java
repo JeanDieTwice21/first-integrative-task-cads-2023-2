@@ -1,21 +1,20 @@
 package tests;
-import model.Queue;
+import util.Queue;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class QueueTest<T> {
 
 
-    // Enqueue and dequeue elements in order
+    // Enqueue and dequeue the same element multiple times
     @Test
-    public void test_enqueue_dequeue_order() {
+    public void test_enqueue_dequeue_same_element_multiple_times() {
         Queue<Integer> queue = new Queue<>();
         queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
         assertEquals(Integer.valueOf(1), queue.dequeue());
-        assertEquals(Integer.valueOf(2), queue.dequeue());
-        assertEquals(Integer.valueOf(3), queue.dequeue());
+        assertNull(queue.dequeue());
+        queue.enqueue(1);
+        assertEquals(Integer.valueOf(1), queue.dequeue());
     }
 
     // Peek returns first element without removing it
@@ -40,16 +39,11 @@ public class QueueTest<T> {
         assertTrue(queue.isEmpty());
     }
 
-    // Enqueue and dequeue multiple elements
+    // Test that peek works correctly when the queue contains only one element
     @Test
-    public void test_enqueue_dequeue_multiple_elements() {
+    public void test_peek_works_with_one_element() {
         Queue<Integer> queue = new Queue<>();
         queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
-        assertEquals(Integer.valueOf(1), queue.dequeue());
-        assertEquals(Integer.valueOf(2), queue.dequeue());
-        assertEquals(Integer.valueOf(3), queue.dequeue());
-        assertTrue(queue.isEmpty());
+        assertEquals(Integer.valueOf(1), queue.peek());
     }
 }

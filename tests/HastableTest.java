@@ -1,6 +1,6 @@
 package tests;
 import org.junit.Test;
-import model.HashTable;
+import util.HashTable;
 import static org.junit.Assert.*;
 
 public class HastableTest<k,V> {

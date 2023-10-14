@@ -1,6 +1,6 @@
 package util;
 
-public class PriorityQueue<T extends Comparable<T>>{
+public class PriorityQueue<T extends Comparable<T>> {
 
     private DoubleLinkedList<T> q;
 
@@ -34,9 +34,8 @@ public class PriorityQueue<T extends Comparable<T>>{
         if(q.isEmpty()){
 
             value = null;
-
         }
-
+        
         T minValue = q.getFirst();
         int lastI = q.size() - 1;
         q.set(0, q.get(lastI));

@@ -1,6 +1,6 @@
 package tests;
 
-import model.DoubleLinkedList;
+import util.DoubleLinkedList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -29,7 +29,7 @@ public class DoubleLinkedListTest<T> {
     @Test
     public void test_delete_last_element_empty_list() {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
-        assertNull(list.deleteLast());
+        assertNull(list.removeLast());
     }
 
     // Searching for an element not present in the list using search() method
